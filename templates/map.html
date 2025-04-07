@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- map.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Карта отслеживания</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+
+<div id="map" style="height: 500px;"></div>
+
+<script>
+var map = L.map('map').setView([51.505, -0.09], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19
+}).addTo(map);
+
+function addMarker(latitude, longitude) {
+    L.marker([latitude, longitude]).addTo(map);
+}
+
+// Замените productId на актуальный идентификатор товара
+loadCityHistory(productId);
+
+async function loadCityHistory(productId) {
+    const response = await fetch(`/get_city_history/${productId}`);
+    const cityHistory = await response.json();
+    cityHistory.forEach(location => {
+        addMarker(location.latitude, location.longitude);
+    });
+}
+</script>
+
+</body>
+</html>
+{% endblock %}

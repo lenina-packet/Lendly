@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Регистрация</h1>
+    <form method="POST">
+        <label>Имя:</label><input type="text" name="first_name" required><br>
+        <label>Фамилия:</label><input type="text" name="last_name" required><br>
+        <label>Телефон:</label><input type="text" name="phone" required><br>
+        <label>Пароль:</label><input type="password" name="password" required><br>
+        <label>Город:</label><input type="text" name="city" required><br>
+        <label>Дата рождения:</label><input type="date" name="birth_date" required><br>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+{% endblock %}

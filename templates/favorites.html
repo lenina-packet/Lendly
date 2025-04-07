@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="fade-in">
+        <h1 class="my-4">Избранное</h1>
+        <div class="row">
+            {% for favorite in favorites %}
+                <div class="col-md-4 mb-4">
+                    <div class="card product-card h-100">
+                        <img src="{{ favorite[9] }}" class="card-img-top" alt="{{ favorite[1] }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ favorite[1] }}</h5>
+                            <p class="card-text"><strong>Город:</strong> {{ favorite[3] }}</p>
+                            <p class="card-text"><strong>Цена:</strong> {{ favorite[4] }} руб./день</p>
+                            <a href="{{ url_for('product', product_id=favorite[0]) }}" class="btn btn-primary">Подробнее</a>
+                            <a href="{{ url_for('remove_from_favorites_route', product_id=favorite[0]) }}" class="btn btn-danger">Убрать</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

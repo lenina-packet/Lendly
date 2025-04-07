@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="card fade-in product-card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">{{ product[1] }}</h5>
+        </div>
+        <div class="card-body">
+            <img src="{{ product[9] }}" style="width: 550px;" class="card-img-top" alt="{{ product[1] }}">
+            <p class="card-text"><strong>Город:</strong> {{ product[3] }}</p>
+            <p class="card-text"><strong>Цена за день:</strong> {{ product[4] }} руб.</p>
+            <p class="card-text"><strong>Владелец:</strong> <img src="{{ owner[2] }}" class="rounded-circle" style="width: 30px; height: 30px;" alt="Avatar"> {{ owner[0] }} {{ owner[1] }}</p>
+            <p class="card-text"><strong>Описание:</strong> {{ product[6] }}</p>
+            <div id="map" style="height: 400px;" class="mb-3"></div>
+            <a href="{{ url_for('use_card', product_id=product[0]) }}" class="btn btn-info">Использовать карточку</a>
+            <form method="POST" action="{{ url_for('create_order', product_id=product[0]) }}" class="d-inline">
+                <button type="submit" class="btn btn-success">Заказать</button>
+            </form>
+            {% if is_favorite %}
+                <a href="{{ url_for('remove_from_favorites_route', product_id=product[0]) }}" class="btn btn-danger"><i class="fas fa-heart"></i> Убрать из избранного</a>
+            {% else %}
+                <a href="{{ url_for('add_to_favorites_route', product_id=product[0]) }}" class="btn btn-outline-danger"><i class="fas fa-heart"></i> В избранное</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([{{ product[7] }}, {{ product[8] }}], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        L.marker([{{ product[7] }}, {{ product[8] }}]).addTo(map)
+            .bindPopup('{{ product[3] }}')
+            .openPopup();
+    </script>
+{% endblock %}

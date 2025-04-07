@@ -1,0 +1,56 @@
+body {
+  background-color: #f4f7fa;
+  font-family: 'Arial', sans-serif;
+}
+
+.chat-container {
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.chat-message {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 70%;
+}
+
+.chat-message.sent {
+  background-color: #007bff;
+  color: white;
+  margin-left: auto;
+}
+
+.chat-message.received {
+  background-color: #e9ecef;
+  color: black;
+}
+
+.product-card img {
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.history-card img {
+  max-height: 100px;
+  object-fit: cover;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.badge-achievement {
+  background-color: #28a745;
+  color: white;
+  margin-right: 5px;
+}

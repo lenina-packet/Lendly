@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="fade-in">
+        <h1 class="my-4">История использования</h1>
+        <div class="row">
+            {% for status in statuses %}
+                <div class="col-md-6 mb-4">
+                    <div class="card history-card h-100">
+                        <div class="card-body d-flex">
+                            <img src="{{ status[6] }}" class="me-3" alt="{{ status[5] }}">
+                            <div>
+                                <h5 class="card-title">{{ status[5] }}</h5>
+                                <p class="card-text"><strong>Статус:</strong> {{ status[2] }}</p>
+                                <p class="card-text"><strong>Трек-номер:</strong> {{ status[4] or 'Нет' }}</p>
+                                <p class="card-text"><strong>Стоимость:</strong> {{ status[5] }} руб.</p>
+                                <p class="card-text"><strong>Дата:</strong> {{ status[5] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

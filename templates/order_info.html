@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- order_info.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о заказе</title>
+</head>
+<body>
+
+<h1>Информация о заказе</h1>
+<p>Статус заказа: {{ order.status }}</p>
+<p>Трек-номер: {{ order.tracking_number }}</p>
+
+<button onclick="updateOrderStatus('received')">Пометить как полученный</button>
+
+<script>
+async function updateOrderStatus(status) {
+    const response = await fetch(`/update_order_status/${order.id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: status })
+    });
+    
+    if (response.ok) {
+        alert("Статус обновлен!");
+        // Обновить страницу после изменения статуса
+        location.reload();
+    }
+}
+</script>
+
+</body>
+</html>
+{% endblock %}

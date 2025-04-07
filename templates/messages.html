@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row fade-in">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Новое сообщение</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('send_message_route') }}">
+                        <div class="mb-3">
+                            <label class="form-label">Получатель</label>
+                            <select class="form-select" name="receiver_id" required>
+                                <option value="">Выберите получателя</option>
+                                {% for user in users %}
+                                    {% if user[0] != current_user.id %}
+                                        <option value="{{ user[0] }}">{{ user[1] }} {{ user[2] }} ({{ user[3] }})</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Товар (опционально)</label>
+                            <select class="form-select" name="product_id">
+                                <option value="">Без товара</option>
+                                {% for product in products %}
+                                    <option value="{{ product[0] }}">{{ product[1] }} ({{ product[3] }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Сообщение</label>
+                            <textarea class="form-control" name="message" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Ваши сообщения</h5>
+                </div>
+                <div class="card-body chat-container">
+                    {% for message in messages %}
+                        <div class="chat-message {% if message[1] == current_user.id %} sent {% else %} received {% endif %}">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ message[8] }}" class="rounded-circle me-2" style="width: 40px; height: 40px;" alt="Avatar">
+                                <div>
+                                    <strong>{{ message[4] }} {{ message[5] }}</strong>
+                                    <p class="mb-0">{{ message[3] }}</p>
+                                    <small class="text-muted">Товар: {{ message[7] or 'Нет' }} | {{ message[5] }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="fade-in">
+        <h1 class="my-4">Профиль пользователя: {{ current_user.first_name }} {{ current_user.last_name }}</h1>
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        <img src="{{ current_user.avatar_url }}" class="rounded-circle mb-3" style="width: 150px; height: 150px;" alt="Avatar">
+                        <h5>{{ current_user.first_name }} {{ current_user.last_name }}</h5>
+                        <p class="text-muted">{{ current_user.phone }}</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p><strong>Город:</strong> {{ current_user.city }}</p>
+                        <p><strong>Дата рождения:</strong> {{ current_user.birth_date }}</p>
+                        <p><strong>Достижения:</strong></p>
+                        {% if current_user.achievements %}
+                            {% for achievement in current_user.achievements.split(',') %}
+                                <span class="badge badge-achievement">{{ achievement }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted">Пока нет достижений</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Статистика</h5>
+                        <p><strong>Заказов:</strong> {{ order_count }}</p>
+                        <p><strong>Ваши товары:</strong> {{ owned_products }}</p>
+                        <p><strong>Всего потрачено:</strong> {{ total_spent }} руб.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Ваши затраты</h5>
+                        <canvas id="spendingChart" style="max-height: 400px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log("Chart.js loaded:", typeof Chart !== 'undefined');
+                console.log("Spending data:", {{ spending_by_category | tojson }});
+                var ctx = document.getElementById('spendingChart').getContext('2d');
+                if (typeof Chart === 'undefined') {
+                    console.error("Chart.js не загружен!");
+                    return;
+                }
+                var chart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: [{% for category in spending_by_category %}'{{ category[0] }}',{% endfor %}],
+                        datasets: [{
+                            data: [{% for category in spending_by_category %}{{ category[1] }},{% endfor %}],
+                            backgroundColor: ['#007bff', '#28a745', '#dc3545', '#ffc107', '#6f42c1'],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'top' },
+                            title: { display: true, text: 'Затраты по категориям' }
+                        }
+                    }
+                });
+            });
+        </script>
+    </div>
+{% endblock %}

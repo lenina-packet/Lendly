@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Мои аренды</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rental in rentals %}
+                <tr>
+                    <td>{{ rental[5] }}</td>  <!-- Название товара -->
+                    <td>{{ rental[3] }}</td>  <!-- Статус -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

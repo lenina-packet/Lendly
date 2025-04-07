@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>Арендуй и делись: легко + разумно!</h1>
+                    <p><a href="{{ url_for('main.add_product') }}" class="btn btn-secondary">Добавить товар</a></p>
+                </div>
+                <div class="col-lg-6">
+                    <img src="{{ url_for('static', filename='images/couch.png') }}" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

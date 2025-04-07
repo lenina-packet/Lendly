@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="fade-in">
+        <h1 class="my-4 text-center">Добро пожаловать в Lendly!</h1>
+        {% if current_user.is_authenticated %}
+            <div class="row">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Добавить свой товар!</h5>
+                        <p href="{{ url_for('add_product_route') }}" class="btn btn-secondary">Добавить товар</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-shopping-cart"></i> Заказы</h5>
+                            <p class="card-text">У вас {{ order_count }} заказов</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-envelope"></i> Сообщения</h5>
+                            <p class="card-text">{{ message_count }} непрочитанных</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-info mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-box"></i> Товары</h5>
+                            <p class="card-text">Вы владеете {{ owned_products }} товарами</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Ваши затраты</h5>
+                    <canvas id="spendingChart" style="max-height: 400px;"></canvas>
+                    <p class="text-center mt-3">Всего потрачено: {{ total_spent }} руб.</p>
+                </div>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    console.log("Chart.js loaded:", typeof Chart !== 'undefined');
+                    console.log("Spending data:", {{ spending_by_category | tojson }});
+                    var ctx = document.getElementById('spendingChart').getContext('2d');
+                    if (typeof Chart === 'undefined') {
+                        console.error("Chart.js не загружен!");
+                        return;
+                    }
+                    var chart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: [{% for category in spending_by_category %}'{{ category[0] }}',{% endfor %}],
+                            datasets: [{
+                                data: [{% for category in spending_by_category %}{{ category[1] }},{% endfor %}],
+                                backgroundColor: ['#007bff', '#28a745', '#dc3545', '#ffc107', '#6f42c1', '#17a2b8', '#fd7e14'],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { position: 'top' },
+                                title: { display: true, text: 'Затраты по категориям' }
+                            }
+                        }
+                    });
+                });
+            </script>
+        {% else %}
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Начните прямо сейчас!</h5>
+                    <p class="card-text">Войдите или зарегистрируйтесь, чтобы арендовать или сдавать товары.</p>
+                    <a href="{{ url_for('login') }}" class="btn btn-primary">Войти</a>
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-primary">Регистрация</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container fade-in">
+        <h1 class="my-4">Доступные товары</h1>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card product-card h-100">
+                        {% if product[9] %}
+                            <img src="{{ url_for('static', filename='uploads/' + product[9]) }}" class="card-img-top" alt="{{ product[1] }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/200" class="card-img-top" alt="Нет фото">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product[1] }}</h5>
+                            <p class="card-text"><strong>Город:</strong> {{ product[3] }}</p>
+                            <p class="card-text"><strong>Цена:</strong> {{ product[4] }} руб./день</p>
+                            <a href="{{ url_for('product', product_id=product[0]) }}" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

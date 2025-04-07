@@ -1,0 +1,162 @@
+body {
+    background-color: #f4f7fa;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    padding: 15px;
+}
+
+/* Навигация */
+.navbar {
+    padding: 10px 15px;
+}
+
+.navbar-brand img {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.1);
+}
+
+.navbar-nav .nav-link {
+    padding: 8px 15px;
+    font-size: 16px;
+}
+
+@media (max-width: 991px) {
+    .navbar-nav {
+        text-align: center;
+    }
+    .navbar-nav .nav-link {
+        padding: 10px;
+    }
+}
+
+/* Чат */
+.chat-container {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.chat-message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 70%;
+}
+
+.chat-message.sent {
+    background-color: #007bff;
+    color: white;
+    margin-left: auto;
+}
+
+.chat-message.received {
+    background-color: #e9ecef;
+    color: black;
+}
+
+@media (max-width: 767px) {
+    .chat-container {
+        max-height: 300px;
+    }
+    .chat-message {
+        max-width: 90%;
+    }
+}
+
+/* Карточки товаров и истории */
+.product-card img {
+    max-height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.history-card img {
+    max-height: 100px;
+    object-fit: cover;
+}
+
+@media (max-width: 575px) {
+    .product-card img {
+        max-height: 150px;
+    }
+    .history-card img {
+        max-height: 80px;
+    }
+    .card-body {
+        padding: 10px;
+    }
+    .card-title {
+        font-size: 1.1rem;
+    }
+}
+
+/* Анимация */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Значки достижений */
+.badge-achievement {
+    background-color: #28a745;
+    color: white;
+    margin-right: 5px;
+    font-size: 0.9rem;
+}
+
+/* Адаптивные кнопки */
+.btn {
+    margin: 5px 0;
+    width: 100%;
+    max-width: 200px;
+}
+
+@media (min-width: 768px) {
+    .btn {
+        width: auto;
+        margin: 0 5px;
+    }
+}
+
+/* Диаграмма */
+canvas {
+    max-width: 100%;
+    height: auto !important;
+}
+
+@media (max-width: 767px) {
+    canvas {
+        max-height: 300px !important;
+    }
+}
+
+/* Общие улучшения для мобильных устройств */
+@media (max-width: 575px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    h5 {
+        font-size: 1.2rem;
+    }
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    .navbar-brand img {
+        height: 25px;
+    }
+}

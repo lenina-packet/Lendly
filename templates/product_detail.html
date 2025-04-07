@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>{{ product.name }}</h2>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Количество:</strong> {{ product.quantity }}</p>
+            <p><strong>Местоположение:</strong> {{ product.location }}</p>
+            <p><strong>Цена за сутки:</strong> {{ product.price_per_day }}₽</p>
+            <p><strong>История:</strong> {{ product.history }}</p>
+            <p><strong>Описание:</strong> {{ product.description }}</p>
+            <p><strong>Статус:</strong> {{ status.status if status else 'Доступен' }}</p>
+        </div>
+    </div>
+
+    <!-- Кнопка "Забронировать" -->
+    {% if product.quantity > 0 %}
+        <h3 class="mt-4">Забронировать товар</h3>
+        <form method="POST" action="{{ url_for('book_product', product_id=product.id) }}">
+            <div class="form-group">
+                <label for="days">Количество дней аренды:</label>
+                <input type="number" class="form-control" id="days" name="days" min="1" required>
+            </div>
+            <button type="submit" class="btn btn-success">Забронировать</button>
+        </form>
+    {% else %}
+        <div class="alert alert-warning mt-4">
+            Товар недоступен для бронирования.
+        </div>
+    {% endif %}
+
+    <!-- Сообщения -->
+    <h3 class="mt-4">Сообщения</h3>
+    <div class="messages">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p><strong>{{ message.sender_id }}:</strong> {{ message.message }}</p>
+                        <small class="text-muted">{{ message.timestamp }}</small>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Сообщений пока нет.</p>
+        {% endif %}
+    </div>
+
+    <!-- Форма для отправки сообщения -->
+    <h3 class="mt-4">Отправить сообщение</h3>
+    <form method="POST" action="{{ url_for('send_message', product_id=product.id) }}">
+        <div class="form-group">
+            <label for="message">Ваше сообщение:</label>
+            <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+
+    <!-- Уведомления -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-info mt-4">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <a href="{{ url_for('available_products') }}" class="btn btn-secondary mt-3">Назад к списку товаров</a>
+{% endblock %}
