@@ -69,15 +69,14 @@
 > "ИИ сэкономил нам недели работы!"
 
 ---
-
 ## 📷 Скриншоты
 
 | Главная страница         | Профиль пользователя     | Каталог товаров         |
 |--------------------------|--------------------------|-------------------------|
-| ![Главная](screens/index.png) | ![Профиль](screens/profile.png) | ![Товары](screens/products.png) |
+| ![Главная](https://github.com/lenina-packet/Lendly/raw/main/screens/index.jpg) | ![Профиль](https://github.com/lenina-packet/Lendly/raw/main/screens/profile.jpg) | ![Товары](https://github.com/lenina-packet/Lendly/raw/main/screens/products.jpg) |
 
 | История заказов          | Чат                     | Избранное              |
 |--------------------------|-------------------------|------------------------|
-| ![История](screens/history.png) | ![Чат](screens/sms.png) | ![Избранное](screens/fav.png) |
+| ![История](https://github.com/lenina-packet/Lendly/raw/main/screens/history.jpg) | ![Чат](https://github.com/lenina-packet/Lendly/raw/main/screens/sms.jpg) | ![Избранное](https://github.com/lenina-packet/Lendly/raw/main/screens/fav.jpg) |
 
 ---
