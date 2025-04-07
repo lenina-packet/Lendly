@@ -1,6 +1,6 @@
-# PLUSY — Платформа аренды будущего
+# Lendly — Платформа аренды будущего
 
-![PLUSY Logo](static/favicon.png)  
+![Lendly Logo](static/favicon.png)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)  
 [![Python](https://img.shields.io/badge/Python-3.8+-yellow.svg)](https://www.python.org/)  
 [![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
